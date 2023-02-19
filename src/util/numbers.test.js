@@ -21,4 +21,32 @@ describe("transformToNumber", () => {
   });
 });
 
-// describe("cleanNumbers", () => {});
+describe("cleanNumbers", () => {
+  it("should return an array of numbers if it recived an array of string numbers values", () => {
+    const numbers = ["1", "2", "3", "4"];
+    const expectedValue = numbers.map((number) => +number);
+
+    const result = cleanNumbers(numbers);
+
+    expect(result).toEqual(expectedValue);
+  });
+
+  it("should throw an error if array with at least one empty string ", () => {
+    const numbers = ["1", "", "3", "4"];
+    const resultFn = () => cleanNumbers(numbers);
+
+    expect(resultFn).toThrow();
+  });
+
+  it("should throw an error if array with at least one invalid string ", () => {
+    const numbers = ["1", "one", "3", "4"];
+    const resultFn = () => cleanNumbers(numbers);
+
+    expect(resultFn).toThrow();
+  });
+
+  it("should throw an error if there is no args passed to it ", () => {
+    const resultFn = () => cleanNumbers();
+    expect(resultFn).toThrow();
+  });
+});
